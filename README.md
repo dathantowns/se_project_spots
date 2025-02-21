@@ -27,3 +27,5 @@ Welcome to project 3! A responsive website deploying BEM naming principles, resp
 https://drive.google.com/file/d/1ip3iSXbxq-4bZdBc0Nh_QJQrtiKvBhiG/view?usp=sharing
 
 **GITHUB PAGE**
+
+https://dathantowns.github.io/se_project_spots/
