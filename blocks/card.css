@@ -1,6 +1,6 @@
 .card {
-  max-width: 413px;
-  max-height: 445px;
+  width: 413px;
+  height: 445px;
   justify-content: space-between;
   list-style-type: none;
 }
@@ -11,6 +11,7 @@
   margin-bottom: 12px;
   border-radius: 8px;
   object-fit: cover;
+  display: block;
 }
 
 .card__content {
@@ -35,9 +36,15 @@
 .card__like-btn {
   width: 23px;
   height: 20px;
-  background-image: url(../images/Like\ Icon.png);
+  background-image: url(../images/like-icon\ 2.png);
   border: none;
   background-color: transparent;
+  opacity: 0.4;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.card__like-btn:hover {
+  opacity: 1;
 }
 
 @media screen and (max-width: 627px) {
