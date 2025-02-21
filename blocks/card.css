@@ -26,11 +26,8 @@
   font-size: 20px;
   line-height: 24px;
   text-overflow: ellipsis;
+  white-space: nowrap;
   overflow: hidden;
-  line-clamp: 1;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
 }
 
 .card__like-btn {
@@ -55,5 +52,17 @@
   .card__image {
     width: 288px;
     height: 288px;
+  }
+
+  .card__description {
+    font-size: 16px;
+    line-height: 16px;
+  }
+
+  .card__like-btn {
+    width: 21px;
+    height: 18px;
+    background-size: cover;
+    border-style: none;
   }
 }
