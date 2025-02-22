@@ -21,6 +21,7 @@
 
 .card__description {
   margin: 0;
+  max-width: 390px;
   font-family: Poppins;
   font-weight: 500;
   font-size: 20px;
@@ -58,6 +59,7 @@
   .card__description {
     font-size: 16px;
     line-height: 16px;
+    max-width: 265px;
   }
 
   .card__like-btn {
