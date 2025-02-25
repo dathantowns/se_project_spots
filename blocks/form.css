@@ -1,0 +1,90 @@
+.form__fieldset {
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  border: none;
+}
+
+.form__header {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 32px 0;
+}
+
+.form__title {
+  margin: 0;
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 32px;
+}
+
+.form__close-btn {
+  background-image: url(../images/close-icon.png);
+  background-size: cover;
+  opacity: 40%;
+  width: 40px;
+  height: 40px;
+  padding: 0;
+  background-color: transparent;
+  border: none;
+}
+
+.form__close-btn:hover {
+  opacity: 100%;
+}
+
+.form__label {
+  color: rgba(33, 33, 33, 0.7);
+  margin-bottom: 8px;
+}
+
+.form__input {
+  width: 630px;
+  margin-bottom: 32px;
+  padding: 16px 0 16px 12px;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 20px;
+  border-radius: 8px;
+  border: 1px solid rgba(33, 33, 33, 0.4);
+}
+
+.form__input::placeholder {
+  color: rgba(33, 33, 33, 0.3);
+}
+
+.form__input:hover {
+  border: 1px solid rgba(33, 33, 33, 1);
+}
+
+.form__save-btn {
+  width: 156px;
+  padding: 18px 58px;
+  color: rgba(252, 245, 229, 1);
+  background-color: rgba(33, 33, 33, 1);
+  border-radius: 8px;
+  margin-bottom: 32px;
+  transition: background-color 0.5s ease;
+}
+
+.form__save-btn:hover {
+  background-color: rgba(33, 33, 33, 0.8);
+}
+
+@media screen and (max-width: 750px) {
+  .form__input {
+    width: 284px;
+    font-size: 20px;
+    line-height: 20px;
+  }
+
+  .form__save-btn {
+    width: 100%;
+  }
+
+  .form__title {
+    font-size: 20px;
+    line-height: 20px;
+    padding-top: 10px;
+  }
+}
