@@ -2,34 +2,33 @@ const editButton = document.querySelector(".profile__edit-btn");
 
 const closeButton = document.querySelector(".form__close-btn");
 
-let modal = document.querySelector("#edit-modal");
+const profileFormElement = document.querySelector("#edit-modal");
 
-const submitButton = modal.querySelector(".form__save-btn");
+const submitButton = profileFormElement.querySelector(".form__save-btn");
 
-let nameField = modal.querySelector("#name");
+let nameInput = profileFormElement.querySelector("#name");
 
-let descriptionField = modal.querySelector("#description");
+let jobInput = profileFormElement.querySelector("#description");
 
-let profileName = document.querySelector(".profile__title");
+let profileNameElement = document.querySelector(".profile__title");
 
-let profileDescription = document.querySelector(".profile__description");
+let profileJobElement = document.querySelector(".profile__description");
 
-function openModal() {
-  modal.classList.add("modal_opened");
-  nameField.value = profileName.textContent;
-  descriptionField.value = profileDescription.textContent;
+function handleOpenForm() {
+  profileFormElement.classList.add("modal_opened");
+  nameInput.value = profileNameElement.textContent;
+  jobInput.value = profileJobElement.textContent;
 }
 
-function closeModal() {
-  let modal = document.querySelector("#edit-modal");
-  modal.classList.remove("modal_opened");
+function handleCloseForm() {
+  profileFormElement.classList.remove("modal_opened");
 }
 
-function editProfile(evt) {
+function handleProfileFormSubmit(evt) {
+  profileNameElement.textContent = nameInput.value;
+  profileJobElement.textContent = jobInput.value;
+  profileFormElement.classList.remove("modal_opened");
   evt.preventDefault();
-  profileName.textContent = nameField.value;
-  profileDescription.textContent = descriptionField.value;
-  modal.classList.remove("modal_opened");
 }
 
 // const initialCards = [
@@ -59,6 +58,6 @@ function editProfile(evt) {
 //   }
 // ]
 
-editButton.addEventListener("click", openModal);
-closeButton.addEventListener("click", closeModal);
-submitButton.addEventListener("click", editProfile);
+editButton.addEventListener("click", handleOpenForm);
+closeButton.addEventListener("click", handleCloseForm);
+profileFormElement.addEventListener("submit", handleProfileFormSubmit);
