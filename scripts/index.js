@@ -6,6 +6,14 @@ const profileFormElement = document.querySelector("#edit-modal");
 
 const submitButton = profileFormElement.querySelector(".form__save-btn");
 
+const newPostButton = document.querySelector(".profile__new-btn");
+
+const newPostFormElement = document.querySelector("#post-modal");
+
+const closeNewPostButton = newPostFormElement.querySelector(".form__close-btn");
+
+const saveNewPostButton = newPostFormElement.querySelector(".form__save-btn");
+
 let nameInput = profileFormElement.querySelector("#name");
 
 let jobInput = profileFormElement.querySelector("#description");
@@ -14,7 +22,7 @@ let profileNameElement = document.querySelector(".profile__title");
 
 let profileJobElement = document.querySelector(".profile__description");
 
-const initialCards = [
+let initialCards = [
   {
     name: "Ibiza",
     link: "https://plus.unsplash.com/premium_photo-1697730002753-6772fea94e55?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
@@ -62,14 +70,12 @@ const cardTemplate = document.querySelector("#card-template").content;
 
 function getCardElementData(data) {
   let cardsListElement = document.querySelector(".cards__list");
-
   let cardElement = cardTemplate.querySelector(".card").cloneNode(true);
   let cardImageElement = cardElement.querySelector(".card__image");
   let cardTitleElement = cardElement.querySelector(".card__description");
   cardImageElement.src = data.link;
   cardImageElement.alt = data.name;
   cardTitleElement.textContent = data.name;
-  console.log(cardElement);
   cardsListElement.append(cardElement);
 }
 
@@ -77,6 +83,30 @@ for (i = 0; i < initialCards.length; i++) {
   getCardElementData(initialCards[i]);
 }
 
+function handleOpenNewPost() {
+  newPostFormElement.classList.add("modal_opened");
+}
+
+function handleCloseNewPost() {
+  newPostFormElement.classList.remove("modal_opened");
+}
+
+function handleNewPostSubmit(evt) {
+  let newPostObject = { link: "", name: "" };
+  let newPostLinkInput = newPostFormElement.querySelector("#link");
+  let newPostNameInput = newPostFormElement.querySelector("#description");
+  newPostObject.link = newPostLinkInput.value;
+  newPostObject.name = newPostNameInput.value;
+  profileFormElement.classList.remove("modal_opened");
+  initialCards.push(newPostObject);
+  getCardElementData(initialCards[initialCards.length - 1]);
+  handleCloseNewPost();
+  evt.preventDefault();
+}
+
 editButton.addEventListener("click", handleOpenForm);
 closeButton.addEventListener("click", handleCloseForm);
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+newPostButton.addEventListener("click", handleOpenNewPost);
+closeNewPostButton.addEventListener("click", handleCloseNewPost);
+newPostFormElement.addEventListener("submit", handleNewPostSubmit);

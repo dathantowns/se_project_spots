@@ -93,6 +93,35 @@
           </form>
         </div>
       </div>
+      <div class="modal" id="post-modal">
+        <div class="modal__container">
+          <div class="form__header">
+            <h2 class="form__title">New Post</h2>
+            <button class="form__close-btn" type="button"></button>
+          </div>
+          <form class="form" name="post-form">
+            <fieldset class="form__fieldset">
+              <label for="link" class="form__label">Image URL</label>
+              <input
+                type="text"
+                class="form__input"
+                id="link"
+                placeholder="Type your image URL"
+              />
+              <label for="description" class="form__label"
+                >Post Description</label
+              >
+              <input
+                type="text"
+                class="form__input"
+                id="description"
+                placeholder="Type your post desription"
+              />
+            </fieldset>
+            <button type="submit" class="form__save-btn">Save</button>
+          </form>
+        </div>
+      </div>
     </div>
     <script src="./scripts/index.js" defer></script>
   </body>
