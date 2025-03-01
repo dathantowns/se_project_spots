@@ -18,7 +18,7 @@
       <header class="header">
         <img
           src="./images/header_logo.svg"
-          alt="header logo"
+          alt="spots logo"
           class="header__logo"
         />
       </header>
@@ -32,7 +32,7 @@
           <div class="profile__column">
             <p class="profile__title">Bessie Coleman</p>
             <p class="profile__description">Civil Aviator</p>
-            <button class="profile__edit-btn">
+            <button class="profile__edit-btn" type="button">
               <img
                 src="./images/edit-profile-icon.svg"
                 alt="icon"
@@ -40,7 +40,7 @@
               />Edit Profile
             </button>
           </div>
-          <button class="profile__new-btn">
+          <button class="profile__new-btn" type="button">
             <img
               src="./images/add-icon.svg"
               alt="icon"
@@ -68,28 +68,28 @@
       </footer>
       <div class="modal" id="edit-modal">
         <div class="modal__container">
-          <div class="form__header">
-            <h2 class="form__title">Edit Profile</h2>
-            <button class="form__close-btn" type="button"></button>
+          <div class="modal__header">
+            <h2 class="modal__title">Edit Profile</h2>
+            <button class="modal__close-btn" type="button"></button>
           </div>
-          <form class="form" name="edit-form">
-            <fieldset class="form__fieldset">
-              <label for="name" class="form__label">Name</label>
+          <form class="modal__form" name="edit-form">
+            <fieldset class="modal__fieldset">
+              <label for="name" class="modal__label">Name</label>
               <input
                 type="text"
-                class="form__input"
+                class="modal__input"
                 id="name"
                 placeholder="Type your name"
               />
-              <label for="description" class="form__label">Description</label>
+              <label for="description" class="modal__label">Description</label>
               <input
                 type="text"
-                class="form__input"
+                class="modal__input"
                 id="description"
                 placeholder="Type your desription"
               />
             </fieldset>
-            <button type="submit" class="form__save-btn">Save</button>
+            <button type="submit" class="modal__save-btn">Save</button>
           </form>
         </div>
       </div>
