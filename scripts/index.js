@@ -1,18 +1,18 @@
 const editButton = document.querySelector(".profile__edit-btn");
 
-const closeButton = document.querySelector(".form__close-btn");
+const closeButton = document.querySelector(".modal__close-btn");
 
 const profileFormElement = document.querySelector("#edit-modal");
 
-const submitButton = profileFormElement.querySelector(".form__save-btn");
+const submitButton = profileFormElement.querySelector(".modal__save-btn");
 
-let nameInput = profileFormElement.querySelector("#name");
+const nameInput = profileFormElement.querySelector("#name");
 
-let jobInput = profileFormElement.querySelector("#description");
+const jobInput = profileFormElement.querySelector("#description");
 
-let profileNameElement = document.querySelector(".profile__title");
+const profileNameElement = document.querySelector(".profile__title");
 
-let profileJobElement = document.querySelector(".profile__description");
+const profileJobElement = document.querySelector(".profile__description");
 
 const initialCards = [
   {
@@ -54,22 +54,21 @@ function handleCloseForm() {
 function handleProfileFormSubmit(evt) {
   profileNameElement.textContent = nameInput.value;
   profileJobElement.textContent = jobInput.value;
-  profileFormElement.classList.remove("modal_opened");
+  handleCloseForm();
   evt.preventDefault();
 }
 
 const cardTemplate = document.querySelector("#card-template").content;
 
 function getCardElementData(data) {
-  let cardsListElement = document.querySelector(".cards__list");
+  const cardsListElement = document.querySelector(".cards__list");
 
-  let cardElement = cardTemplate.querySelector(".card").cloneNode(true);
-  let cardImageElement = cardElement.querySelector(".card__image");
-  let cardTitleElement = cardElement.querySelector(".card__description");
+  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardImageElement = cardElement.querySelector(".card__image");
+  const cardTitleElement = cardElement.querySelector(".card__description");
   cardImageElement.src = data.link;
   cardImageElement.alt = data.name;
   cardTitleElement.textContent = data.name;
-  console.log(cardElement);
   cardsListElement.append(cardElement);
 }
 
