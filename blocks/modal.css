@@ -1,7 +1,5 @@
 .modal {
   background-color: rgba(0, 0, 0, 0.5);
-  height: 100%;
-  width: 100%;
   position: fixed;
   top: 0;
   right: 0;
@@ -21,7 +19,8 @@
 .modal__container {
   background-color: white;
   padding: 32px 50px 0;
-  width: min-content;
+  width: 100%;
+  max-width: 730px;
   height: min-content;
   border-radius: 8px;
 }
@@ -55,6 +54,7 @@
   padding: 0;
   background-color: transparent;
   border: none;
+  cursor: pointer;
 }
 
 .modal__close-btn:hover {
@@ -67,7 +67,7 @@
 }
 
 .modal__input {
-  width: 630px;
+  width: 97%;
   margin-bottom: 32px;
   padding: 16px 0 16px 12px;
   font-weight: 500;
@@ -93,6 +93,7 @@
   border-radius: 8px;
   margin-bottom: 32px;
   transition: background-color 0.5s ease;
+  cursor: pointer;
 }
 
 .modal__save-btn:hover {
@@ -100,13 +101,16 @@
 }
 
 @media screen and (max-width: 750px) {
+  .modal {
+    padding: 0 10px;
+  }
+
   .modal__container {
-    width: 300px;
     padding: 12px;
   }
 
   .modal__input {
-    width: 284px;
+    width: 97%;
     font-size: 20px;
     line-height: 20px;
   }

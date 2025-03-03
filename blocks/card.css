@@ -22,7 +22,7 @@
 .card__description {
   margin: 0;
   max-width: 390px;
-  font-family: Poppins;
+  font-family: "Poppins", Helvetica, sans-serif;
   font-weight: 500;
   font-size: 20px;
   line-height: 24px;

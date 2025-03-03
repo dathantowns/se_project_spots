@@ -14,6 +14,10 @@ const profileNameElement = document.querySelector(".profile__title");
 
 const profileJobElement = document.querySelector(".profile__description");
 
+const cardTemplate = document.querySelector("#card-template");
+
+const cardsListElement = document.querySelector(".cards__list");
+
 const initialCards = [
   {
     name: "Ibiza",
@@ -58,22 +62,21 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 }
 
-const cardTemplate = document.querySelector("#card-template").content;
-
 function getCardElementData(data) {
-  const cardsListElement = document.querySelector(".cards__list");
-
-  const cardElement = cardTemplate.querySelector(".card").cloneNode(true);
+  const cardElement = cardTemplate.content
+    .querySelector(".card")
+    .cloneNode(true);
   const cardImageElement = cardElement.querySelector(".card__image");
   const cardTitleElement = cardElement.querySelector(".card__description");
+
   cardImageElement.src = data.link;
   cardImageElement.alt = data.name;
   cardTitleElement.textContent = data.name;
-  cardsListElement.append(cardElement);
+  return cardElement;
 }
 
 for (i = 0; i < initialCards.length; i++) {
-  getCardElementData(initialCards[i]);
+  cardsListElement.append(getCardElementData(initialCards[i]));
 }
 
 editButton.addEventListener("click", handleOpenForm);
