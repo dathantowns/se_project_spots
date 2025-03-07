@@ -66,8 +66,8 @@ function getCardElementData(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
     .cloneNode(true);
-  const cardImageElement = cardElement.querySelector(".card__image");
-  const cardTitleElement = cardElement.querySelector(".card__description");
+  let cardImageElement = cardElement.querySelector(".card__image");
+  let cardTitleElement = cardElement.querySelector(".card__description");
 
   cardImageElement.src = data.link;
   cardImageElement.alt = data.name;
@@ -75,9 +75,10 @@ function getCardElementData(data) {
   return cardElement;
 }
 
-for (i = 0; i < initialCards.length; i++) {
-  cardsListElement.append(getCardElementData(initialCards[i]));
-}
+initialCards.forEach((card) => {
+  cardsListElement.append(getCardElementData(card));
+  console.log(cardsListElement);
+});
 
 editButton.addEventListener("click", handleOpenForm);
 closeButton.addEventListener("click", handleCloseForm);
