@@ -24,6 +24,13 @@ const newPostFormElement = document.querySelector("#post-modal");
 
 const closePostButton = newPostFormElement.querySelector(".modal__close-btn");
 
+const linkInput = document.querySelector("#link");
+
+const captionInput = document.querySelector("#caption");
+
+const newPostSubmitButton =
+  newPostFormElement.querySelector(".modal__save-btn");
+
 const initialCards = [
   {
     name: "Ibiza",
@@ -74,6 +81,26 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
 }
 
+function renderCards() {
+  initialCards.forEach((card) => {
+    cardsListElement.append(getCardElementData(card));
+  });
+}
+
+function renderNewCard(card) {
+  cardsListElement.prepend(getCardElementData(card));
+}
+
+function handleNewPostSubmit(evt) {
+  initialCards.splice(0, 0, {
+    link: linkInput.value,
+    name: captionInput.value,
+  });
+  renderNewCard(initialCards[0]);
+  handleCloseModal(newPostFormElement);
+  evt.preventDefault();
+}
+
 function getCardElementData(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
@@ -87,10 +114,7 @@ function getCardElementData(data) {
   return cardElement;
 }
 
-initialCards.forEach((card) => {
-  cardsListElement.append(getCardElementData(card));
-  console.log(cardsListElement);
-});
+renderCards();
 
 editButton.addEventListener("click", () => {
   handleOpenModal(profileFormElement);
@@ -109,3 +133,5 @@ newProfileButton.addEventListener("click", () => {
 closePostButton.addEventListener("click", () => {
   handleCloseModal(newPostFormElement);
 });
+
+newPostFormElement.addEventListener("submit", handleNewPostSubmit);
