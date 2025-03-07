@@ -1,6 +1,6 @@
 const editButton = document.querySelector(".profile__edit-btn");
 
-const closeButton = document.querySelector(".modal__close-btn");
+const closeProfileButton = document.querySelector(".modal__close-btn");
 
 const profileFormElement = document.querySelector("#edit-modal");
 
@@ -17,6 +17,12 @@ const profileJobElement = document.querySelector(".profile__description");
 const cardTemplate = document.querySelector("#card-template");
 
 const cardsListElement = document.querySelector(".cards__list");
+
+const newProfileButton = document.querySelector(".profile__new-btn");
+
+const newPostFormElement = document.querySelector("#post-modal");
+
+const closePostButton = newPostFormElement.querySelector(".modal__close-btn");
 
 const initialCards = [
   {
@@ -45,20 +51,26 @@ const initialCards = [
   },
 ];
 
-function handleOpenForm() {
-  profileFormElement.classList.add("modal_opened");
+// function handleOpenForm() {
+//   profileFormElement.classList.add("modal_opened");
+//   nameInput.value = profileNameElement.textContent;
+//   jobInput.value = profileJobElement.textContent;
+// }
+
+function handleOpenModal(modal) {
+  modal.classList.add("modal_opened");
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
 }
 
-function handleCloseForm() {
-  profileFormElement.classList.remove("modal_opened");
+function handleCloseModal(modal) {
+  modal.classList.remove("modal_opened");
 }
 
 function handleProfileFormSubmit(evt) {
   profileNameElement.textContent = nameInput.value;
   profileJobElement.textContent = jobInput.value;
-  handleCloseForm();
+  handleCloseModal(profileFormElement);
   evt.preventDefault();
 }
 
@@ -80,6 +92,20 @@ initialCards.forEach((card) => {
   console.log(cardsListElement);
 });
 
-editButton.addEventListener("click", handleOpenForm);
-closeButton.addEventListener("click", handleCloseForm);
+editButton.addEventListener("click", () => {
+  handleOpenModal(profileFormElement);
+});
+
+closeProfileButton.addEventListener("click", () => {
+  handleCloseModal(profileFormElement);
+});
+
 profileFormElement.addEventListener("submit", handleProfileFormSubmit);
+
+newProfileButton.addEventListener("click", () => {
+  handleOpenModal(newPostFormElement);
+});
+
+closePostButton.addEventListener("click", () => {
+  handleCloseModal(newPostFormElement);
+});
