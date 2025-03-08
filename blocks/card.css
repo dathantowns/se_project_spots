@@ -3,6 +3,23 @@
   height: 445px;
   justify-content: space-between;
   list-style-type: none;
+  position: relative;
+}
+
+.card__delete-btn {
+  width: 32px;
+  height: 32px;
+  background-image: url(../images/trash-icon.png);
+  background-size: cover;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  border: none;
+  background-color: transparent;
+}
+
+.card__delete-btn:hover {
+  background-image: url(../images/delete-icon-hover.png);
 }
 
 .card__image {
