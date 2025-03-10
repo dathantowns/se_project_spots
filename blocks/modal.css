@@ -10,10 +10,14 @@
   justify-content: center;
   align-items: center;
   visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s linear 0.3s, opacity 0.3s ease-in;
 }
 
 .modal_opened {
   visibility: visible;
+  opacity: 1;
+  transition: opacity 0.3s ease-out;
 }
 
 .modal__container {
@@ -23,6 +27,27 @@
   max-width: 730px;
   height: min-content;
   border-radius: 8px;
+}
+
+.modal__img {
+  max-width: 80vw;
+  max-height: 80vh;
+  width: 100%;
+  border-radius: 8px;
+  object-fit: contain;
+}
+
+.modal__content {
+  position: relative;
+}
+
+.modal__caption {
+  color: white;
+  background-color: rgba(33, 33, 33, 1);
+  width: max-content;
+  font-size: 20px;
+  border-radius: 8px;
+  padding: 4px 8px;
 }
 
 .modal__fieldset {
@@ -59,6 +84,18 @@
 
 .modal__close-btn:hover {
   opacity: 100%;
+}
+
+.modal__close-btn_light {
+  background-image: url(../images/close-light.png);
+  position: absolute;
+  top: 0;
+  right: -52px;
+  opacity: 1;
+}
+
+.modal__close-btn_light:hover {
+  opacity: 0.4;
 }
 
 .modal__label {
@@ -123,5 +160,14 @@
     font-size: 20px;
     line-height: 20px;
     padding-top: 10px;
+  }
+
+  .modal__content {
+    max-width: 100%;
+  }
+
+  .modal__close-btn_light {
+    top: -48px;
+    right: 0;
   }
 }

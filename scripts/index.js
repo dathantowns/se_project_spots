@@ -28,13 +28,15 @@ const linkInput = document.querySelector("#link");
 
 const captionInput = document.querySelector("#caption");
 
+const previewModal = document.querySelector("#preview-modal");
+
 const newPostSubmitButton =
   newPostFormElement.querySelector(".modal__save-btn");
 
 const initialCards = [
   {
-    name: "Ibiza",
-    link: "https://plus.unsplash.com/premium_photo-1697730002753-6772fea94e55?q=80&w=2669&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+    name: "Golden Gate Bridge",
+    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/spots/7-photo-by-griffin-wooldridge-from-pexels.jpg",
   },
   {
     name: "Dubai",
@@ -109,6 +111,9 @@ function getCardElementData(data) {
   let cardTitleElement = cardElement.querySelector(".card__description");
   let cardLikeButton = cardElement.querySelector(".card__like-btn");
   let cardDeleteButton = cardElement.querySelector(".card__delete-btn");
+  let previewImageElement = previewModal.querySelector(".modal__img");
+  let previewCloseButton = previewModal.querySelector(".modal__close-btn");
+  let previewCaption = previewModal.querySelector(".modal__caption");
   cardImageElement.src = data.link;
   cardImageElement.alt = data.name;
   cardTitleElement.textContent = data.name;
@@ -117,6 +122,14 @@ function getCardElementData(data) {
   });
   cardDeleteButton.addEventListener("click", () => {
     cardElement.remove();
+  });
+  cardImageElement.addEventListener("click", () => {
+    previewImageElement.src = cardImageElement.src;
+    previewCaption.textContent = cardTitleElement.textContent;
+    handleOpenModal(previewModal);
+  });
+  previewCloseButton.addEventListener("click", () => {
+    handleCloseModal(previewModal);
   });
 
   return cardElement;
