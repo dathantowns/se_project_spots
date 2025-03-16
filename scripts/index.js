@@ -104,7 +104,6 @@ function handleNewPostSubmit(evt) {
     name: captionInput.value,
   };
   initialCards.unshift(newPostElement);
-  console.log(initialCards);
   renderNewCard(newPostElement);
   handleCloseModal(newPostFormElement);
   evt.preventDefault();
