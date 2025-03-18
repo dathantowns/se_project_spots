@@ -37,11 +37,27 @@ function hasInvalidInput(inputList) {
   });
 }
 
+function enableButton(buttonElement) {
+  buttonElement.classList.remove(config.inactiveButtonClass);
+  buttonElement.disabled = false;
+}
+
+function disableButton(buttonElement) {
+  buttonElement.classList.add(config.inactiveButtonClass);
+  buttonElement.disabled = true;
+}
+
+function resetValidation(formElement, inputList) {
+  inputList.forEach((inputElement) => {
+    hideInputError(formElement, inputElement);
+  });
+}
+
 function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-    buttonElement.classList.add(config.inactiveButtonClass);
+    disableButton(buttonElement);
   } else {
-    buttonElement.classList.remove(config.inactiveButtonClass);
+    enableButton(buttonElement);
   }
 }
 
@@ -51,6 +67,7 @@ function setEventListeners(formElement) {
   );
   const buttonElement = formElement.querySelector(".modal__save-btn");
 
+  toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener("input", () => {
       checkInputValidity(formElement, inputElement);

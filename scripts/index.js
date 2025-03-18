@@ -68,13 +68,6 @@ const initialCards = [
 
 function handleOpenModal(modal) {
   modal.classList.add("modal_opened");
-  if (modal === profileFormElement) {
-    nameInput.value = profileNameElement.textContent;
-    jobInput.value = profileJobElement.textContent;
-  } else if (modal === newPostFormElement) {
-    linkInput.value = "";
-    captionInput.value = "";
-  }
 }
 
 function handleCloseModal(modal) {
@@ -82,10 +75,13 @@ function handleCloseModal(modal) {
 }
 
 function handleProfileFormSubmit(evt) {
+  evt.preventDefault();
   profileNameElement.textContent = nameInput.value;
   profileJobElement.textContent = jobInput.value;
+  disableButton(submitButton);
+  nameInput.value = profileNameElement.textContent;
+  jobInput.value = profileJobElement.textContent;
   handleCloseModal(profileFormElement);
-  evt.preventDefault();
 }
 
 function renderCards() {
@@ -99,14 +95,16 @@ function renderNewCard(card) {
 }
 
 function handleNewPostSubmit(evt) {
+  evt.preventDefault();
   let newPostElement = {
     link: linkInput.value,
     name: captionInput.value,
   };
   initialCards.unshift(newPostElement);
   renderNewCard(newPostElement);
+  evt.target.reset();
+  disableButton(newPostSubmitButton);
   handleCloseModal(newPostFormElement);
-  evt.preventDefault();
 }
 
 function getCardElementData(data) {
@@ -145,6 +143,7 @@ renderCards();
 
 editButton.addEventListener("click", () => {
   handleOpenModal(profileFormElement);
+  resetValidation(profileFormElement, [nameInput, jobInput]);
 });
 
 closeProfileButton.addEventListener("click", () => {
@@ -155,6 +154,7 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 newProfileButton.addEventListener("click", () => {
   handleOpenModal(newPostFormElement);
+  resetValidation(newPostFormElement, [linkInput, captionInput]);
 });
 
 closePostButton.addEventListener("click", () => {
