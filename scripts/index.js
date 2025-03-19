@@ -68,12 +68,32 @@ const initialCards = [
   },
 ];
 
+function handleEscape(evt) {
+  if (evt.key == "Escape") {
+    modalsList.forEach((modal) => {
+      if (modal.classList.contains("modal_opened")) {
+        handleCloseModal(modal);
+      }
+    });
+  }
+}
+
+function enableEsc() {
+  document.addEventListener("keydown", handleEscape);
+}
+
+function disableEsc() {
+  document.removeEventListener("keydown", handleEscape);
+}
+
 function handleOpenModal(modal) {
   modal.classList.add("modal_opened");
+  enableEsc();
 }
 
 function handleCloseModal(modal) {
   modal.classList.remove("modal_opened");
+  disableEsc();
 }
 
 function handleProfileFormSubmit(evt) {
