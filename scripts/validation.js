@@ -7,27 +7,32 @@ const settings = {
   errorClass: "modal__input-error_visible",
 };
 
-function showInputError(formElement, inputElement, errorMessage) {
+function showInputError(formElement, inputElement, errorMessage, config) {
   const errorElementId = inputElement.id + "-error";
   const errorElement = formElement.querySelector("#" + errorElementId);
-  inputElement.classList.add(settings.inputErrorClass);
+  inputElement.classList.add(config.inputErrorClass);
   errorElement.textContent = errorMessage;
-  errorElement.classList.add(settings.errorClass);
+  errorElement.classList.add(config.errorClass);
 }
 
-function hideInputError(formElement, inputElement) {
+function hideInputError(formElement, inputElement, config) {
   const errorElementId = inputElement.id + "-error";
   const errorElement = formElement.querySelector("#" + errorElementId);
-  inputElement.classList.remove(settings.inputErrorClass);
+  inputElement.classList.remove(config.inputErrorClass);
   errorElement.textContent = "";
-  errorElement.classList.remove(settings.errorClass);
+  errorElement.classList.remove(config.errorClass);
 }
 
 function checkInputValidity(formElement, inputElement) {
   if (!inputElement.validity.valid) {
-    showInputError(formElement, inputElement, inputElement.validationMessage);
+    showInputError(
+      formElement,
+      inputElement,
+      inputElement.validationMessage,
+      settings
+    );
   } else {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, settings);
   }
 }
 
@@ -37,37 +42,35 @@ function hasInvalidInput(inputList) {
   });
 }
 
-function enableButton(buttonElement) {
-  buttonElement.classList.remove(settings.inactiveButtonClass);
+function enableButton(buttonElement, config) {
+  buttonElement.classList.remove(config.inactiveButtonClass);
   buttonElement.disabled = false;
 }
 
-function disableButton(buttonElement) {
-  buttonElement.classList.add(settings.inactiveButtonClass);
+function disableButton(buttonElement, config) {
+  buttonElement.classList.add(config.inactiveButtonClass);
   buttonElement.disabled = true;
 }
 
-function resetValidation(formElement, inputList) {
+function resetValidation(formElement, inputList, config) {
   inputList.forEach((inputElement) => {
-    hideInputError(formElement, inputElement);
+    hideInputError(formElement, inputElement, config);
   });
 }
 
 function toggleButtonState(inputList, buttonElement) {
   if (hasInvalidInput(inputList)) {
-    disableButton(buttonElement);
+    disableButton(buttonElement, settings);
   } else {
-    enableButton(buttonElement);
+    enableButton(buttonElement, settings);
   }
 }
 
-function setEventListeners(formElement) {
+function setEventListeners(formElement, config) {
   const inputList = Array.from(
-    formElement.querySelectorAll(settings.inputSelector)
+    formElement.querySelectorAll(config.inputSelector)
   );
-  const buttonElement = formElement.querySelector(
-    settings.submitButtonSelector
-  );
+  const buttonElement = formElement.querySelector(config.submitButtonSelector);
 
   toggleButtonState(inputList, buttonElement);
   inputList.forEach((inputElement) => {
@@ -82,7 +85,7 @@ function enableValidation(config) {
   const formsList = Array.from(document.querySelectorAll(config.formSelector));
 
   formsList.forEach((formElement) => {
-    setEventListeners(formElement);
+    setEventListeners(formElement, config);
   });
 }
 

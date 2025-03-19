@@ -4,7 +4,8 @@ const closeProfileButton = document.querySelector(".modal__close-btn");
 
 const profileFormElement = document.querySelector("#edit-modal");
 
-const submitButton = profileFormElement.querySelector(".modal__save-btn");
+const profileSubmitButton =
+  profileFormElement.querySelector(".modal__save-btn");
 
 const nameInput = profileFormElement.querySelector("#name");
 
@@ -100,7 +101,6 @@ function handleProfileFormSubmit(evt) {
   evt.preventDefault();
   profileNameElement.textContent = nameInput.value;
   profileJobElement.textContent = jobInput.value;
-  disableButton(submitButton);
   nameInput.value = profileNameElement.textContent;
   jobInput.value = profileJobElement.textContent;
   handleCloseModal(profileFormElement);
@@ -118,14 +118,14 @@ function renderNewCard(card) {
 
 function handleNewPostSubmit(evt) {
   evt.preventDefault();
-  let newPostElement = {
+  const newPostElement = {
     link: linkInput.value,
     name: captionInput.value,
   };
   initialCards.unshift(newPostElement);
   renderNewCard(newPostElement);
   evt.target.reset();
-  disableButton(newPostSubmitButton);
+  disableButton(newPostSubmitButton, settings);
   handleCloseModal(newPostFormElement);
 }
 
@@ -176,7 +176,9 @@ setModalCloseListeners();
 
 editButton.addEventListener("click", () => {
   handleOpenModal(profileFormElement);
-  resetValidation(profileFormElement, [nameInput, jobInput]);
+  resetValidation(profileFormElement, [nameInput, jobInput], settings);
+  nameInput.value = profileNameElement.textContent;
+  jobInput.value = profileJobElement.textContent;
 });
 
 closeProfileButton.addEventListener("click", () => {
