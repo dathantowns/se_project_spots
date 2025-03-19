@@ -39,6 +39,8 @@ const previewCaption = previewModal.querySelector(".modal__caption");
 const newPostSubmitButton =
   newPostFormElement.querySelector(".modal__save-btn");
 
+const modalsList = Array.from(document.querySelectorAll(".modal"));
+
 const initialCards = [
   {
     name: "Golden Gate Bridge",
@@ -135,11 +137,22 @@ function getCardElementData(data) {
   return cardElement;
 }
 
+function setModalCloseListeners() {
+  modalsList.forEach((modal) => {
+    modal.addEventListener("click", (evt) => {
+      if (evt.target == modal) {
+        handleCloseModal(modal);
+      }
+    });
+  });
+}
+
 previewCloseButton.addEventListener("click", () => {
   handleCloseModal(previewModal);
 });
 
 renderCards();
+setModalCloseListeners();
 
 editButton.addEventListener("click", () => {
   handleOpenModal(profileFormElement);
