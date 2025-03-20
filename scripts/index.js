@@ -99,10 +99,6 @@ function handleCloseModal(modal) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
-  profileNameElement.textContent = nameInput.value;
-  profileJobElement.textContent = jobInput.value;
-  nameInput.value = profileNameElement.textContent;
-  jobInput.value = profileJobElement.textContent;
   handleCloseModal(profileFormElement);
 }
 
@@ -189,7 +185,6 @@ profileFormElement.addEventListener("submit", handleProfileFormSubmit);
 
 newProfileButton.addEventListener("click", () => {
   handleOpenModal(newPostFormElement);
-  resetValidation(newPostFormElement, [linkInput, captionInput]);
 });
 
 closePostButton.addEventListener("click", () => {
