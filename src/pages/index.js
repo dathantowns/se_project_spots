@@ -1,3 +1,23 @@
+import "./index.css";
+import {
+  resetValidation,
+  disableButton,
+  enableValidation,
+  settings,
+} from "../scripts/validation.js";
+import headerSrc from "../images/header_logo.svg";
+import profileSrc from "../images/Avatar.png";
+import editProfileSrc from "../images/edit-profile-icon.svg";
+import newProfileSrc from "../images/add-icon.svg";
+
+const headerLogo = document.getElementById("header-logo");
+headerLogo.src = headerSrc;
+const profileImg = document.getElementById("profile-img");
+profileImg.src = profileSrc;
+const editIcon = document.getElementById("edit-profile-icon");
+editIcon.src = editProfileSrc;
+const newIcon = document.getElementById("new-profile-icon");
+newIcon.src = newProfileSrc;
 const editButton = document.querySelector(".profile__edit-btn");
 
 const closeProfileButton = document.querySelector(".modal__close-btn");
@@ -192,3 +212,5 @@ closePostButton.addEventListener("click", () => {
 });
 
 newPostFormElement.addEventListener("submit", handleNewPostSubmit);
+
+enableValidation(settings);

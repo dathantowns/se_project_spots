@@ -10,42 +10,29 @@
     <meta name="keywords" content="HTML, CSS" />
     <meta name="author" content="Dathan Towns" />
     <link rel="shortcut icon" href="favicon.ico" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <title>Spots</title>
   </head>
   <body>
     <div class="page">
       <header class="header">
-        <img
-          src="./images/header_logo.svg"
-          alt="spots logo"
-          class="header__logo"
-        />
+        <img id="header-logo" alt="spots logo" class="header__logo" />
       </header>
       <main class="content">
         <section class="profile page__section">
-          <img
-            src="./images/Avatar.png"
-            alt="profile image"
-            class="profile__image"
-          />
+          <img id="profile-img" alt="profile image" class="profile__image" />
           <div class="profile__column">
             <p class="profile__title">Bessie Coleman</p>
             <p class="profile__description">Civil Aviator</p>
             <button class="profile__edit-btn" type="button">
               <img
-                src="./images/edit-profile-icon.svg"
+                id="edit-profile-icon"
                 alt="icon"
                 class="profile__edit-icon"
               />Edit Profile
             </button>
           </div>
           <button class="profile__new-btn" type="button">
-            <img
-              src="./images/add-icon.svg"
-              alt="icon"
-              class="profile__new-icon"
-            />
+            <img id="new-profile-icon" alt="icon" class="profile__new-icon" />
             New Post
           </button>
         </section>
@@ -154,7 +141,5 @@
         </div>
       </div>
     </div>
-    <script src="./scripts/validation.js" defer></script>
-    <script src="./scripts/index.js" defer></script>
   </body>
 </html>
