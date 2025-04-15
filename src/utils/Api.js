@@ -5,7 +5,7 @@ export default class Api {
   }
 
   getAppInfo() {
-    return Promise.all([this.getInitialCards()]);
+    return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
   getInitialCards() {
@@ -15,6 +15,55 @@ export default class Api {
           return res.json();
         }
         Promise.reject(`Error: ${res.status}`);
+      }
+    );
+  }
+
+  getUserInfo() {
+    return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
+      (res) => {
+        if (res.ok) {
+          return res.json();
+        }
+        Promise.reject(`Error: ${res.status}`);
+      }
+    );
+  }
+
+  postNewCard(name, link) {
+    return fetch(`${this._baseUrl}/cards`, {
+      method: "POST",
+      headers: this._headers,
+      body: JSON.stringify({
+        name: name,
+        link: link,
+      }),
+    })
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        return res.json();
+      })
+      .catch((err) => {
+        console.error("Failed to post new card:", err);
+        return Promise.reject(err);
+      });
+  }
+
+  // NEEDS WORK
+  renderNewCard(item) {}
+
+  removeCard() {
+    return (
+      fetch(`${this._baseUrl}/cards`),
+      {
+        method: "DELETE",
+        headers: this._headers,
+        body: JSON.stringify({
+          name: name,
+          link: link,
+        }),
       }
     );
   }

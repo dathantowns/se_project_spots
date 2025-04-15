@@ -7,14 +7,12 @@ import {
 } from "../scripts/validation.js";
 import Api from "../utils/Api.js";
 import headerSrc from "../images/header_logo.svg";
-import profileSrc from "../images/Avatar.png";
 import editProfileSrc from "../images/edit-profile-icon.svg";
 import newProfileSrc from "../images/add-icon.svg";
 
 const headerLogo = document.getElementById("header-logo");
 headerLogo.src = headerSrc;
 const profileImg = document.getElementById("profile-img");
-profileImg.src = profileSrc;
 const editIcon = document.getElementById("edit-profile-icon");
 editIcon.src = editProfileSrc;
 const newIcon = document.getElementById("new-profile-icon");
@@ -58,6 +56,9 @@ const previewCloseButton = previewModal.querySelector(".modal__close-btn");
 
 const previewCaption = previewModal.querySelector(".modal__caption");
 
+let selectedCard;
+let selectedCardId;
+
 const newPostSubmitButton =
   newPostFormElement.querySelector(".modal__save-btn");
 
@@ -100,10 +101,13 @@ const api = new Api({
 
 api
   .getAppInfo()
-  .then(([cards]) => {
+  .then(([cards, user]) => {
     cards.forEach((card) => {
       cardsListElement.append(getCardElementData(card));
     });
+    profileNameElement.textContent = user.name;
+    profileJobElement.textContent = user.about;
+    profileImg.src = user.avatar;
   })
   .catch((err) => {
     console.error(err); // log the error to the console
@@ -142,21 +146,32 @@ function handleProfileFormSubmit(evt) {
   handleCloseModal(profileFormElement);
 }
 
-function renderNewCard(card) {
-  cardsListElement.prepend(getCardElementData(card));
-}
-
 function handleNewPostSubmit(evt) {
   evt.preventDefault();
-  const newPostElement = {
-    link: linkInput.value,
-    name: captionInput.value,
-  };
-  initialCards.unshift(newPostElement);
-  renderNewCard(newPostElement);
-  evt.target.reset();
-  disableButton(newPostSubmitButton, settings);
-  handleCloseModal(newPostFormElement);
+  api
+    .postNewCard(captionInput.value, linkInput.value)
+    .then((res) => {
+      console.log("Server response:", res);
+      const cardElement = getCardElementData(res);
+      console.log("cardElement:", cardElement);
+      console.log("Before append:", cardsListElement.children.length);
+      cardsListElement.prepend(cardElement);
+      console.log("After append:", cardsListElement.children.length);
+    })
+    .catch((err) => {
+      console.log("Error creating card:", err);
+    })
+    .finally(() => {
+      evt.target.reset();
+      disableButton(newPostSubmitButton, settings);
+      handleCloseModal(newPostFormElement);
+    });
+}
+
+function handleDeleteCard(cardElement, data) {
+  selectedCard = cardElement;
+  selectedCardId = cardElement.id;
+  // open the delete confirmation modal
 }
 
 function getCardElementData(data) {
@@ -174,9 +189,9 @@ function getCardElementData(data) {
   cardLikeButton.addEventListener("click", () => {
     cardLikeButton.classList.toggle("card__like-btn_liked");
   });
-  cardDeleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+  cardDeleteButton.addEventListener("click", (evt) =>
+    handleDeleteCard(cardElement, data)
+  );
   cardImageElement.addEventListener("click", () => {
     previewImageElement.src = cardImageElement.src;
     previewImageElement.alt = `${cardTitleElement.textContent} pic`;
@@ -201,7 +216,6 @@ previewCloseButton.addEventListener("click", () => {
   handleCloseModal(previewModal);
 });
 
-renderCards();
 setModalCloseListeners();
 
 editButton.addEventListener("click", () => {
