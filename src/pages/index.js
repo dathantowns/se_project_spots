@@ -56,6 +56,14 @@ const previewCloseButton = previewModal.querySelector(".modal__close-btn");
 
 const previewCaption = previewModal.querySelector(".modal__caption");
 
+const deleteModal = document.querySelector("#delete-modal");
+
+const deleteButton = deleteModal.querySelector(".modal__delete-btn_delete");
+
+const cancelButton = deleteModal.querySelector(".modal__delete-btn_cancel");
+
+const closeDeletebutton = deleteModal.querySelector(".modal__close-btn");
+
 let selectedCard;
 let selectedCardId;
 
@@ -154,9 +162,7 @@ function handleNewPostSubmit(evt) {
       console.log("Server response:", res);
       const cardElement = getCardElementData(res);
       console.log("cardElement:", cardElement);
-      console.log("Before append:", cardsListElement.children.length);
       cardsListElement.prepend(cardElement);
-      console.log("After append:", cardsListElement.children.length);
     })
     .catch((err) => {
       console.log("Error creating card:", err);
@@ -171,7 +177,7 @@ function handleNewPostSubmit(evt) {
 function handleDeleteCard(cardElement, data) {
   selectedCard = cardElement;
   selectedCardId = cardElement.id;
-  // open the delete confirmation modal
+  deleteModal.classList.add("modal_opened");
 }
 
 function getCardElementData(data) {
@@ -237,6 +243,14 @@ newProfileButton.addEventListener("click", () => {
 
 closePostButton.addEventListener("click", () => {
   handleCloseModal(newPostFormElement);
+});
+
+closeDeletebutton.addEventListener("click", () => {
+  handleCloseModal(deleteModal);
+});
+
+cancelButton.addEventListener("click", () => {
+  handleCloseModal(deleteModal);
 });
 
 newPostFormElement.addEventListener("submit", handleNewPostSubmit);
