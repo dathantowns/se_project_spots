@@ -7,8 +7,8 @@
 }
 
 .profile__image {
-  max-height: 190px;
-  max-width: 190px;
+  height: 190px;
+  width: 190px;
   margin-right: 20px;
   border-radius: 8px;
 }

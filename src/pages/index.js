@@ -23,6 +23,8 @@ const editAvatarIcon = document.getElementById("edit-avatar-icon");
 editAvatarIcon.src = editAvatarSrc;
 const closeProfileButton = document.querySelector(".modal__close-btn");
 
+const editAvatarButton = document.querySelector(".profile__edit-avatar-btn");
+
 const profileFormElement = document.querySelector("#edit-modal");
 
 const profileSubmitButton =
@@ -62,11 +64,19 @@ const deleteModal = document.querySelector("#delete-modal");
 
 const deleteForm = document.forms[2];
 
-const deleteButton = deleteModal.querySelector(".modal__delete-btn_delete");
-
 const cancelButton = deleteModal.querySelector(".modal__delete-btn_cancel");
 
 const closeDeletebutton = deleteModal.querySelector(".modal__close-btn");
+
+const avatarModal = document.querySelector("#avatar-modal");
+
+const avatarForm = document.forms[3];
+
+const closeAvatarbutton = avatarModal.querySelector(".modal__close-btn");
+
+const avatarInput = avatarModal.querySelector("#avatar");
+
+const avatarOverlay = document.querySelector(".profile__overlay");
 
 let selectedCard;
 let selectedCardId;
@@ -211,6 +221,15 @@ function handleLikeClick(cardElement, btnElement, data) {
   }
 }
 
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+  api.editUserAvatar(avatarInput.value).then((data) => {
+    profileImg.src = data.avatar;
+    handleCloseModal(avatarModal);
+    avatarInput.value = "";
+  });
+}
+
 function getCardElementData(data) {
   const cardElement = cardTemplate.content
     .querySelector(".card")
@@ -255,6 +274,10 @@ previewCloseButton.addEventListener("click", () => {
 
 setModalCloseListeners();
 
+editAvatarButton.addEventListener("click", () => {
+  handleOpenModal(avatarModal);
+});
+
 editButton.addEventListener("click", () => {
   handleOpenModal(profileFormElement);
   resetValidation(profileFormElement, [nameInput, jobInput], settings);
@@ -280,6 +303,10 @@ closeDeletebutton.addEventListener("click", () => {
   handleCloseModal(deleteModal);
 });
 
+closeAvatarbutton.addEventListener("click", () => {
+  handleCloseModal(avatarModal);
+});
+
 cancelButton.addEventListener("click", () => {
   handleCloseModal(deleteModal);
 });
@@ -287,5 +314,7 @@ cancelButton.addEventListener("click", () => {
 newPostFormElement.addEventListener("submit", handleNewPostSubmit);
 
 deleteForm.addEventListener("submit", handleDeleteSubmit);
+
+avatarForm.addEventListener("submit", handleAvatarSubmit);
 
 enableValidation(settings);
