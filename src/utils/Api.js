@@ -30,6 +30,19 @@ export default class Api {
     );
   }
 
+  editUserInfo({ name, about }) {
+    return fetch(`${this._baseUrl}/users/me`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        name,
+        about,
+      }),
+    }).then((res) => {
+      return res.json();
+    });
+  }
+
   postNewCard(name, link) {
     return fetch(`${this._baseUrl}/cards`, {
       method: "POST",
@@ -51,20 +64,24 @@ export default class Api {
       });
   }
 
-  // NEEDS WORK
-  renderNewCard(item) {}
+  removeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this._headers,
+    });
+  }
 
-  removeCard() {
-    return (
-      fetch(`${this._baseUrl}/cards`),
-      {
-        method: "DELETE",
-        headers: this._headers,
-        body: JSON.stringify({
-          name: name,
-          link: link,
-        }),
-      }
-    );
+  likeCard(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "PUT",
+      headers: this._headers,
+    });
+  }
+
+  removeLike(cardId) {
+    return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
+      method: "DELETE",
+      headers: this._headers,
+    });
   }
 }

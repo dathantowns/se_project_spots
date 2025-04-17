@@ -21,8 +21,8 @@
         <section class="profile page__section">
           <img id="profile-img" alt="profile image" class="profile__image" />
           <div class="profile__column">
-            <p class="profile__title">Bessie Cole</p>
-            <p class="profile__description">Civil Aviator</p>
+            <p class="profile__title"></p>
+            <p class="profile__description"></p>
             <button class="profile__edit-btn" type="button">
               <img
                 id="edit-profile-icon"
@@ -147,14 +147,20 @@
             <p class="modal__question">
               Are you sure you want to delete this image?
             </p>
-            <div class="modal__delete-btns">
-              <button class="modal__delete-btn modal__delete-btn_delete">
+            <form class="modal__delete-form">
+              <button
+                class="modal__delete-btn modal__delete-btn_delete"
+                type="submit"
+              >
                 Delete
               </button>
-              <button class="modal__delete-btn modal__delete-btn_cancel">
+              <button
+                class="modal__delete-btn modal__delete-btn_cancel"
+                type="button"
+              >
                 Cancel
               </button>
-            </div>
+            </form>
           </div>
           <button
             class="modal__close-btn modal__close-btn_delete"

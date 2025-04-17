@@ -58,6 +58,8 @@ const previewCaption = previewModal.querySelector(".modal__caption");
 
 const deleteModal = document.querySelector("#delete-modal");
 
+const deleteForm = document.forms[2];
+
 const deleteButton = deleteModal.querySelector(".modal__delete-btn_delete");
 
 const cancelButton = deleteModal.querySelector(".modal__delete-btn_cancel");
@@ -151,6 +153,11 @@ function handleCloseModal(modal) {
 
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  const patch = { name: nameInput.value, about: jobInput.value };
+  api.editUserInfo(patch).then((data) => {
+    profileNameElement.textContent = data.name;
+    profileJobElement.textContent = data.about;
+  });
   handleCloseModal(profileFormElement);
 }
 
@@ -174,10 +181,32 @@ function handleNewPostSubmit(evt) {
     });
 }
 
+function handleDeleteSubmit(evt) {
+  evt.preventDefault();
+  api.removeCard(selectedCardId).then(selectedCard.remove());
+  handleCloseModal(deleteModal);
+}
+
 function handleDeleteCard(cardElement, data) {
   selectedCard = cardElement;
-  selectedCardId = cardElement.id;
-  deleteModal.classList.add("modal_opened");
+  selectedCardId = data._id;
+  handleOpenModal(deleteModal);
+}
+
+function handleLikeClick(cardElement, btnElement, data) {
+  selectedCard = cardElement;
+  selectedCardId = data._id;
+  let selectedBtn = btnElement;
+
+  if (!selectedBtn.classList.contains("card__like-btn_liked")) {
+    api
+      .likeCard(selectedCardId)
+      .then(selectedBtn.classList.add("card__like-btn_liked"));
+  } else {
+    api
+      .removeLike(selectedCardId)
+      .then(selectedBtn.classList.remove("card__like-btn_liked"));
+  }
 }
 
 function getCardElementData(data) {
@@ -192,10 +221,12 @@ function getCardElementData(data) {
   cardImageElement.src = data.link;
   cardImageElement.alt = `${data.name} pic`;
   cardTitleElement.textContent = data.name;
+  // YOU ARE HERE!!!!!!!!!!!!!!!!!!!!
   cardLikeButton.addEventListener("click", () => {
-    cardLikeButton.classList.toggle("card__like-btn_liked");
+    handleLikeClick(cardElement, cardLikeButton, data);
+    // cardLikeButton.classList.toggle("card__like-btn_liked");
   });
-  cardDeleteButton.addEventListener("click", (evt) =>
+  cardDeleteButton.addEventListener("click", () =>
     handleDeleteCard(cardElement, data)
   );
   cardImageElement.addEventListener("click", () => {
@@ -254,5 +285,7 @@ cancelButton.addEventListener("click", () => {
 });
 
 newPostFormElement.addEventListener("submit", handleNewPostSubmit);
+
+deleteForm.addEventListener("submit", handleDeleteSubmit);
 
 enableValidation(settings);
