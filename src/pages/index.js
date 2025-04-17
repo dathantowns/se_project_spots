@@ -9,6 +9,7 @@ import Api from "../utils/Api.js";
 import headerSrc from "../images/header_logo.svg";
 import editProfileSrc from "../images/edit-profile-icon.svg";
 import newProfileSrc from "../images/add-icon.svg";
+import editAvatarSrc from "../images/Group2.svg";
 
 const headerLogo = document.getElementById("header-logo");
 headerLogo.src = headerSrc;
@@ -18,7 +19,8 @@ editIcon.src = editProfileSrc;
 const newIcon = document.getElementById("new-profile-icon");
 newIcon.src = newProfileSrc;
 const editButton = document.querySelector(".profile__edit-btn");
-
+const editAvatarIcon = document.getElementById("edit-avatar-icon");
+editAvatarIcon.src = editAvatarSrc;
 const closeProfileButton = document.querySelector(".modal__close-btn");
 
 const profileFormElement = document.querySelector("#edit-modal");
@@ -221,10 +223,8 @@ function getCardElementData(data) {
   cardImageElement.src = data.link;
   cardImageElement.alt = `${data.name} pic`;
   cardTitleElement.textContent = data.name;
-  // YOU ARE HERE!!!!!!!!!!!!!!!!!!!!
   cardLikeButton.addEventListener("click", () => {
     handleLikeClick(cardElement, cardLikeButton, data);
-    // cardLikeButton.classList.toggle("card__like-btn_liked");
   });
   cardDeleteButton.addEventListener("click", () =>
     handleDeleteCard(cardElement, data)

@@ -13,11 +13,52 @@
   border-radius: 8px;
 }
 
+.profile__overlay {
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 190px;
+  width: 190px;
+  margin-right: 20px;
+  border-radius: 8px;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease-in-out;
+}
+
+.profile__overlay:hover {
+  opacity: 1;
+}
+
+.profile__edit-avatar-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+}
+
 .profile__column {
   display: flex;
   flex-direction: column;
   height: 190px;
   max-width: 420px;
+}
+
+.profile__edit-avatar-btn {
+  display: flex;
+  color: rgba(255, 255, 255, 1);
+  margin: 0;
+  height: 16px;
+  border: none;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 16px;
+  letter-spacing: 0%;
+  background-color: transparent;
+  padding: 0;
+  margin-bottom: 12px;
+  cursor: pointer;
 }
 
 .profile__edit-icon {
@@ -108,6 +149,29 @@
     width: 80px;
     height: 80px;
     margin-right: 0;
+  }
+
+  .profile__overlay {
+    opacity: 1;
+    width: min-content;
+    height: min-content;
+    padding: 4px;
+    margin: 0;
+    position: relative;
+    top: 74.34px;
+    left: 23.34px;
+  }
+
+  .profile__edit-avatar-btn {
+    margin-bottom: 0;
+  }
+
+  .profile__edit-avatar-icon {
+    margin-right: 0;
+  }
+
+  .profile__edit-avatar-btn .text {
+    display: none;
   }
 
   .profile__title {
