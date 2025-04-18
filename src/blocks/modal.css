@@ -29,6 +29,14 @@
   border-radius: 8px;
 }
 
+.modal__container_smaller {
+  width: 630px;
+  padding: 32px 20px 0 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
 .modal__img {
   max-width: 80vw;
   max-height: 80vh;
@@ -39,6 +47,21 @@
 
 .modal__content {
   position: relative;
+}
+
+.modal__content_delete {
+  position: static;
+  display: flex;
+}
+
+.modal__question {
+  margin: 0 auto;
+  font-size: 24px;
+}
+
+.modal__delete-form {
+  display: flex;
+  margin: 32px 149px;
 }
 
 .modal__caption {
@@ -87,7 +110,7 @@
   opacity: 100%;
 }
 
-.modal__close-btn_light {
+.modal__close-btn_preview {
   background-image: url(../images/close-light.svg);
   position: absolute;
   top: 0;
@@ -95,7 +118,21 @@
   opacity: 1;
 }
 
-.modal__close-btn_light:hover {
+.modal__close-btn_preview:hover {
+  opacity: 0.4;
+}
+
+.modal__close-btn_delete {
+  background-image: url(../images/close-light.svg);
+  width: 40px;
+  height: 40px;
+  opacity: 1;
+  position: absolute;
+  right: 255px;
+  opacity: 1;
+}
+
+.modal__close-btn_delete:hover {
   opacity: 0.4;
 }
 
@@ -109,6 +146,7 @@
 
 .modal__input {
   width: 97%;
+  margin-top: 8px;
   margin-bottom: 8px;
   padding: 16px 0 16px 12px;
   font-weight: 500;
@@ -166,6 +204,36 @@
   background-color: rgba(33, 33, 33, 0.5);
 }
 
+.modal__delete-btn {
+  width: 156px;
+  padding: 18px 32px;
+  color: rgba(33, 33, 33, 1);
+  border-radius: 8px;
+  transition: background-color 0.5s ease;
+  cursor: pointer;
+  border: none;
+}
+
+.modal__delete-btn_delete {
+  background-color: rgba(255, 101, 101, 1);
+  margin-right: 20px;
+}
+
+.modal__delete-btn_delete:hover {
+  background-color: rgba(255, 51, 51, 1);
+}
+
+.modal__delete-btn_cancel {
+  background-color: white;
+  border: 1px solid;
+  transition: color 0.5s ease-in-out;
+}
+
+.modal__delete-btn_cancel:hover {
+  background-color: rgba(33, 33, 33, 1);
+  color: white;
+}
+
 @media screen and (max-width: 627px) {
   .modal {
     padding: 0 10px;
@@ -177,6 +245,7 @@
 
   .modal__content {
     width: 96%;
+    min-width: 300px;
   }
 
   .modal__input {
@@ -204,8 +273,27 @@
     padding-top: 10px;
   }
 
-  .modal__content {
-    max-width: 96%;
+  .modal__delete-form {
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .modal__delete-btn_delete {
+    margin: 20px 0 12px;
+  }
+
+  .modal__close-btn_delete {
+    top: 170px;
+    right: 20px;
+  }
+
+  .modal__question {
+    text-align: center;
+  }
+
+  .modal__delete-btn {
+    width: 156px;
   }
 
   .modal__close-btn_light {
