@@ -70,13 +70,15 @@ const closeDeletebutton = deleteModal.querySelector(".modal__close-btn");
 
 const avatarModal = document.querySelector("#avatar-modal");
 
-const avatarForm = document.forms[3];
+const avatarFormElement = document.forms[3];
 
-const closeAvatarbutton = avatarModal.querySelector(".modal__close-btn");
+const closeAvatarButton = avatarModal.querySelector(".modal__close-btn");
 
 const avatarInput = avatarModal.querySelector("#avatar");
 
 const avatarOverlay = document.querySelector(".profile__overlay");
+
+const avatarSubmitButton = avatarFormElement.querySelector(".modal__save-btn");
 
 let selectedCard;
 let selectedCardId;
@@ -163,40 +165,68 @@ function handleCloseModal(modal) {
   disableEsc();
 }
 
+function returnToSave(button) {
+  setTimeout(() => {
+    button.textContent = "Save";
+  }, 2000);
+}
+
 function handleProfileFormSubmit(evt) {
   evt.preventDefault();
+  profileSubmitButton.textContent = "Saving...";
   const patch = { name: nameInput.value, about: jobInput.value };
-  api.editUserInfo(patch).then((data) => {
-    profileNameElement.textContent = data.name;
-    profileJobElement.textContent = data.about;
-  });
-  handleCloseModal(profileFormElement);
+  api
+    .editUserInfo(patch)
+    .then((data) => {
+      profileNameElement.textContent = data.name;
+      profileJobElement.textContent = data.about;
+      handleCloseModal(profileFormElement);
+      returnToSave(profileSubmitButton);
+    })
+    .catch((err) => console.error(err));
 }
 
 function handleNewPostSubmit(evt) {
   evt.preventDefault();
+  newPostSubmitButton.textContent = "Saving...";
   api
     .postNewCard(captionInput.value, linkInput.value)
     .then((res) => {
-      console.log("Server response:", res);
       const cardElement = getCardElementData(res);
-      console.log("cardElement:", cardElement);
       cardsListElement.prepend(cardElement);
-    })
-    .catch((err) => {
-      console.log("Error creating card:", err);
-    })
-    .finally(() => {
       evt.target.reset();
       disableButton(newPostSubmitButton, settings);
       handleCloseModal(newPostFormElement);
+      returnToSave(newPostSubmitButton);
+    })
+    .catch((err) => {
+      console.log("Error creating card:", err);
     });
+}
+
+function handleAvatarSubmit(evt) {
+  evt.preventDefault();
+  avatarSubmitButton.textContent = "Saving...";
+  api
+    .editUserAvatar(avatarInput.value)
+    .then((data) => {
+      profileImg.src = data.avatar;
+      handleCloseModal(avatarModal);
+      returnToSave(avatarSubmitButton);
+      avatarInput.value = "";
+    })
+    .catch((err) => console.error(err));
 }
 
 function handleDeleteSubmit(evt) {
   evt.preventDefault();
-  api.removeCard(selectedCardId).then(selectedCard.remove());
-  handleCloseModal(deleteModal);
+  api
+    .removeCard(selectedCardId)
+    .then(() => {
+      selectedCard.remove();
+      handleCloseModal(deleteModal);
+    })
+    .catch((err) => console.error(err));
 }
 
 function handleDeleteCard(cardElement, data) {
@@ -213,21 +243,14 @@ function handleLikeClick(cardElement, btnElement, data) {
   if (!selectedBtn.classList.contains("card__like-btn_liked")) {
     api
       .likeCard(selectedCardId)
-      .then(selectedBtn.classList.add("card__like-btn_liked"));
+      .then(selectedBtn.classList.add("card__like-btn_liked"))
+      .catch((err) => console.error(err));
   } else {
     api
       .removeLike(selectedCardId)
-      .then(selectedBtn.classList.remove("card__like-btn_liked"));
+      .then(selectedBtn.classList.remove("card__like-btn_liked"))
+      .catch((err) => console.error(err));
   }
-}
-
-function handleAvatarSubmit(evt) {
-  evt.preventDefault();
-  api.editUserAvatar(avatarInput.value).then((data) => {
-    profileImg.src = data.avatar;
-    handleCloseModal(avatarModal);
-    avatarInput.value = "";
-  });
 }
 
 function getCardElementData(data) {
@@ -303,7 +326,7 @@ closeDeletebutton.addEventListener("click", () => {
   handleCloseModal(deleteModal);
 });
 
-closeAvatarbutton.addEventListener("click", () => {
+closeAvatarButton.addEventListener("click", () => {
   handleCloseModal(avatarModal);
 });
 
@@ -315,6 +338,13 @@ newPostFormElement.addEventListener("submit", handleNewPostSubmit);
 
 deleteForm.addEventListener("submit", handleDeleteSubmit);
 
-avatarForm.addEventListener("submit", handleAvatarSubmit);
+avatarFormElement.addEventListener("submit", handleAvatarSubmit);
 
 enableValidation(settings);
+
+console.log(
+  "avatar form:",
+  avatarFormElement,
+  "avatar submit btn:",
+  avatarSubmitButton
+);
