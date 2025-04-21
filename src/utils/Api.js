@@ -8,25 +8,22 @@ export default class Api {
     return Promise.all([this.getInitialCards(), this.getUserInfo()]);
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    Promise.reject(`Error: ${res.status}`);
+  }
+
   getInitialCards() {
     return fetch(`${this._baseUrl}/cards`, { headers: this._headers }).then(
-      (res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        Promise.reject(`Error: ${res.status}`);
-      }
+      this._checkResponse
     );
   }
 
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`, { headers: this._headers }).then(
-      (res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        Promise.reject(`Error: ${res.status}`);
-      }
+      this._checkResponse
     );
   }
 
@@ -38,9 +35,7 @@ export default class Api {
         name,
         about,
       }),
-    }).then((res) => {
-      return res.json();
-    });
+    }).then(this._checkResponse);
   }
 
   postNewCard(name, link) {
@@ -51,38 +46,28 @@ export default class Api {
         name: name,
         link: link,
       }),
-    })
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error(`HTTP error! status: ${res.status}`);
-        }
-        return res.json();
-      })
-      .catch((err) => {
-        console.error("Failed to post new card:", err);
-        return Promise.reject(err);
-      });
+    }).then(this._checkResponse);
   }
 
   removeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   likeCard(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   removeLike(cardId) {
     return fetch(`${this._baseUrl}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
-    });
+    }).then(this._checkResponse);
   }
 
   editUserAvatar(url) {
@@ -92,6 +77,6 @@ export default class Api {
       body: JSON.stringify({
         avatar: url,
       }),
-    }).then((res) => res.json());
+    }).then(this._checkResponse);
   }
 }

@@ -301,6 +301,11 @@
     right: 0px;
   }
 
+  .modal__close-btn_preview {
+    top: -48px;
+    right: 0px;
+  }
+
   .modal__save-btn {
     margin-bottom: 0;
   }
